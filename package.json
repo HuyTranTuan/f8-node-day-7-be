@@ -1,0 +1,24 @@
+{
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "queue": "node --watch queue.js",
+    "schedule": "node --watch schedule.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.16.0",
+    "nodemailer": "^7.0.12",
+    "cron": "^4.4.0",
+    "googleapis": "^170.0.0"
+  }
+}
