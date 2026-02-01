@@ -70,14 +70,12 @@ class AuthService {
     };
   }
 
-  async refreshToken(refreshToken, accessToken) {
+  async refreshToken(refreshToken) {
     const user = await userModel.findByRefreshToken(refreshToken);
 
     if (!user) {
       return null;
     }
-
-    await revokedTokenModel.addRevokedToken(accessToken, user.id);
 
     const tokens = await this.responseWithTokens(user);
 
@@ -171,8 +169,8 @@ class AuthService {
     return response;
   };
 
-  async addRevokedToken(token) {
-    const result = await revokedTokenModel.addRevokedToken(token);
+  async addRevokedToken(token, userID) {
+    const result = await revokedTokenModel.addRevokedToken(token, userID);
     return result;
   }
 

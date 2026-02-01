@@ -32,19 +32,19 @@ const getCurrentUser = async (req, res) => {
 };
 
 const refreshToken = async (req, res) => {
-  const authHeader = req.headers.authorization;
-  const accessToken = authHeader.replace("Bearer ", "").trim();
   const refreshToken = req.body.refresh_token;
-  const result = await authService.refreshToken(refreshToken, accessToken);
+
+  if (!refreshToken) {
+    return res.error(HTTP_STATUS.BAD_REQUESTED, "Refresh token is required");
+  }
+
+  const result = await authService.refreshToken(refreshToken);
 
   if (!result)
     return res.error(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.NOT_FOUND);
 
   if (result === 401)
     return res.error(HTTP_STATUS.UNAUTHORIZED, ERROR_MESSAGES.UNAUTHORIZED);
-
-  const newHeader = `Bearer ${result.access_token}`;
-  req.headers.authorization = newHeader;
 
   res.success(HTTP_STATUS.OK, result);
 };
@@ -94,8 +94,9 @@ const changePassword = async (req, res) => {
 
 const logout = async (req, res) => {
   const authHeader = req.headers.authorization;
+  const { user } = req.user;
   const accessToken = authHeader.replace("Bearer ", "").trim();
-  await authService.addRevokedToken(accessToken);
+  await authService.addRevokedToken(accessToken, user.id);
   res.success(HTTP_STATUS.OK, "Logged out!");
 };
 

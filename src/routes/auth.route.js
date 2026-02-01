@@ -8,7 +8,7 @@ const authRequired = require("../middlewares/authRequired");
 
 router.post("/register", validateUser, authController.register);
 router.post("/login", validateUser, authController.login);
-router.post("/refresh-token", authRequired, authController.refreshToken);
+router.post("/refresh-token", authController.refreshToken);
 router.get("/me", authRequired, authController.getCurrentUser);
 router.post("/verify-email", authController.verifyEmail);
 router.post(

@@ -19,7 +19,7 @@ class RevokedToken {
 
   async deleteRevokedToken(access_token) {
     const [rows] = await pool.query(
-      `select * from revoked_tokens where token = ?;`,
+      `delete from revoked_tokens where token = ?;`,
       [access_token],
     );
     return rows[0];
