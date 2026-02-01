@@ -57,17 +57,38 @@ const verifyEmail = async (req, res) => {
       HTTP_STATUS.FORBIDDEN,
       "Token da het han hoac khong hop le",
     );
-  res.success("Verify email thanh cong");
+  if (result === "Tài khoản đã được xác minh!")
+    return res.error(HTTP_STATUS.CONFLICT, "Tài khoản đã được xác minh!");
+
+  res.success(HTTP_STATUS.OK, "Verify email thanh cong");
 };
 
 const resendVerifyEmail = async (req, res) => {
-  if (req.user.verified_at) {
-    res.error(400, "Tai khoan da duoc xac minh!");
-    return;
-  }
-  const { refreshToken } = req.body;
-  const result = await authService.refreshToken(refreshToken);
-  if (!result) return res.error(401, "Unauthoprized!");
+  const user = req.user;
+  const token = req.body.token;
+  const result = await authService.resendVerifyEmail(user, token);
+  if (!result) return res.error(400, "Tai khoan da duoc xac minh!");
+  res.success(HTTP_STATUS.OK, result);
+};
+
+const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const { user } = req;
+
+  const result = await authService.changePassword(
+    user,
+    oldPassword,
+    newPassword,
+  );
+  if (!result)
+    return res.error(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.NOT_FOUND);
+
+  if (result === 400)
+    return res.error(HTTP_STATUS.BAD_REQUESTED, ERROR_MESSAGES.BAD_REQUESTED);
+
+  if (result === 401)
+    return res.error(HTTP_STATUS.UNAUTHORIZED, ERROR_MESSAGES.UNAUTHORIZED);
+
   res.success(HTTP_STATUS.OK, result);
 };
 
@@ -85,5 +106,6 @@ module.exports = {
   getCurrentUser,
   verifyEmail,
   resendVerifyEmail,
+  changePassword,
   logout,
 };

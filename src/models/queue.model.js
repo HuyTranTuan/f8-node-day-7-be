@@ -12,6 +12,7 @@ class Queue {
     const [rows] = await pool.query(
       `select * from queues where status = "pending" limit 1;`,
     );
+    console.log(rows[0]);
     return rows[0];
   }
 

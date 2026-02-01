@@ -29,10 +29,12 @@ class AuthService {
 
       const tokens = await this.responseWithTokens(newUser);
 
-      // queueService.push({
-      //   type: "sendVerifyEmail",
-      //   payload: newUser,
-      // });
+      queueService.push({
+        type: "sendVerifyEmail",
+        payload: newUser,
+      });
+
+      await emailService.sendVerifyEmail(newUser);
 
       return { user: newUser, token: tokens };
     } catch (error) {
@@ -45,7 +47,7 @@ class AuthService {
   }
 
   async login(email, password) {
-    const user = await userModel.findByEmail(email, password);
+    const user = await userModel.findByEmail(email);
     const { id, username } = user;
 
     if (!user) return 404;
@@ -90,14 +92,59 @@ class AuthService {
     const userId = payload.sub;
     const user = await userModel.findOne(userId);
 
-    if (user.verified_at) return null;
+    if (user.verified_at) return "Tài khoản đã được xác minh!";
 
     return await userModel.verifyEmail(userId);
   }
 
-  async resendVerifyEmail(email) {
-    const result = userModel.resendVerifyEmail(email);
-    return result;
+  async resendVerifyEmail(user) {
+    if (user.verified_at) return null;
+
+    await emailService.sendVerifyEmail(user);
+
+    queueService.push({
+      type: "sendVerifyEmail",
+      payload: {
+        id: user.id,
+        email: user.email,
+      },
+    });
+
+    return "Resend verify email thanh cong";
+  }
+
+  async changePassword(user, oldPassword, newPassword) {
+    const userInDB = await userModel.findByEmail(user.email);
+
+    if (!userInDB) return 404;
+
+    const isValid = await bcrypt.compare(oldPassword, userInDB.password);
+    const hash = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
+
+    if (!isValid) {
+      return 400;
+    }
+
+    try {
+      const { id, username, email } = await userModel.updatePassword(
+        userInDB.email,
+        hash,
+      );
+
+      const userInfo = { id, username, email };
+
+      queueService.push({
+        type: "sendPasswordChangeEmail",
+        payload: {
+          id: user.id,
+          email: user.email,
+        },
+      });
+
+      return { user: userInfo };
+    } catch (error) {
+      throw error;
+    }
   }
 
   responseWithTokens = async (user) => {

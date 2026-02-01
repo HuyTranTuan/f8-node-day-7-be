@@ -21,12 +21,14 @@ module.exports = {
     NOT_FOUND: "Not found",
     INVALID_JSON: "Invalid JSON format",
     DATABASE_ERROR: "Database operation failed",
+    BAD_REQUESTED: "Bad requested! Info is not right!",
   },
 
   // HTTP Status Codes
   HTTP_STATUS: {
     OK: 200,
     CREATED: 201,
+    BAD_REQUESTED: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
     NOT_FOUND: 404,

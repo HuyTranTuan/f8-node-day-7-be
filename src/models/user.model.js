@@ -54,6 +54,21 @@ class User {
     return affectedRows;
   }
 
+  updatePassword = async (email, password) => {
+    const user = await this.findByEmail(email);
+
+    if (!user) return null;
+
+    const now = new Date();
+
+    await pool.query(
+      `update users set password = ?, updated_at = ? where id = ?`,
+      [password, now, user.id],
+    );
+
+    return user;
+  };
+
   async verifyEmail(id) {
     const query = `update users set verified_at = now() where id = ?`;
     const [{ affectedRows }] = await pool.query(query, [id]);
