@@ -29,7 +29,7 @@ function backupDB() {
 
     if (code === 0) {
       console.log(`Backup successfully! File: ${outputFile}`);
-      execSync(`rclone sync ./backup F8BlogGDrive:backupdb`);
+      execSync(`rclone sync ./backup HUYBlogGDrive:backupdb`);
       console.log(`Upload GDrive successfully!`);
 
       await emailService.sendBackupReport(

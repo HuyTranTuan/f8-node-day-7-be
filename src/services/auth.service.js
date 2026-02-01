@@ -30,11 +30,9 @@ class AuthService {
       const tokens = await this.responseWithTokens(newUser);
 
       queueService.push({
-        type: "sendVerifyEmail",
+        type: "sendVerificationEmail",
         payload: newUser,
       });
-
-      await emailService.sendVerifyEmail(newUser);
 
       return { user: newUser, token: tokens };
     } catch (error) {
@@ -101,7 +99,7 @@ class AuthService {
     await emailService.sendVerifyEmail(user);
 
     queueService.push({
-      type: "sendVerifyEmail",
+      type: "sendVerificationEmail",
       payload: {
         id: user.id,
         email: user.email,
