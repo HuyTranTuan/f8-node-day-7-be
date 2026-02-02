@@ -62,7 +62,7 @@ CREATE TABLE `revoked_tokens` (
   `token` varchar(255) NOT NULL,
   `create_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `revoked_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_revokedtokens_users_user_id_idx` (`user_id`),

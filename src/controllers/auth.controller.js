@@ -94,9 +94,9 @@ const changePassword = async (req, res) => {
 
 const logout = async (req, res) => {
   const authHeader = req.headers.authorization;
-  const { user } = req.user;
+  const { user } = req;
   const accessToken = authHeader.replace("Bearer ", "").trim();
-  await authService.addRevokedToken(accessToken, user.id);
+  await authService.addRevokedToken(accessToken, req.payload.exp, user.id);
   res.success(HTTP_STATUS.OK, "Logged out!");
 };
 

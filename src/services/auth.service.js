@@ -162,13 +162,14 @@ class AuthService {
       access_token_ttl: ACCESS_TOKEN_TTL_SECONDS,
       refresh_token: refreshToken,
       refresh_token_ttl: REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60,
+      payload,
     };
 
     return response;
   };
 
-  async addRevokedToken(token, userID) {
-    const result = await revokedTokenModel.addRevokedToken(token, userID);
+  async addRevokedToken(token, exp, userID) {
+    const result = await revokedTokenModel.addRevokedToken(token, exp, userID);
     return result;
   }
 

@@ -40,6 +40,7 @@ const authRequired = async (req, res, next) => {
   let payload;
   try {
     payload = JSON.parse(atob(encodedPayload));
+    req.payload = payload;
   } catch (error) {
     return res.error(HTTP_STATUS.UNAUTHORIZED, ERROR_MESSAGES.UNAUTHORIZED);
   }

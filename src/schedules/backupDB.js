@@ -9,16 +9,19 @@ function backupDB() {
 
   const outputStream = fs.createWriteStream(outputFile);
 
-  const mysqldump = spawn("mysqldump", [
-    process.env.DB_USER,
-    process.env.DB_PASSWORD,
-    process.env.DB_PORT,
+  const mysqldumpPath = process.env.SQL_DUMP;
+
+  const mysqldump = spawn(mysqldumpPath, [
+    `-u${process.env.DB_USER}`,
+    `-p${process.env.DB_PASSWORD}`,
+    `-P${process.env.DB_PORT}`,
     process.env.DB_NAME,
   ]);
 
   mysqldump.stdout.pipe(outputStream);
 
   mysqldump.on("error", (error) => {
+    console.log(error);
     outputStream.end();
     console.error(`mysqldump error: ${error.message}`);
   });
@@ -27,13 +30,15 @@ function backupDB() {
     outputStream.end();
     console.log(`child process exited with code ${code}`);
 
+    const rclonePath = process.env.R_CLONE;
+
     if (code === 0) {
       console.log(`Backup successfully! File: ${outputFile}`);
-      execSync(`rclone sync ./backup HUYBlogGDrive:backupdb`);
-      console.log(`Upload GDrive successfully!`);
+      // execSync(`${rclonePath} sync ./backup HUYBlogGDrive:backupdb`);
+      // console.log(`Upload GDrive successfully!`);
 
       await emailService.sendBackupReport(
-        "<your-email>",
+        process.env.BACKUP_EMAIL,
         "Backup thanh cong",
         outputFile,
       );

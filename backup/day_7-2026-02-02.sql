@@ -1,15 +1,13 @@
-CREATE DATABASE  IF NOT EXISTS `node_day_7` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `node_day_7`;
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: node_day_7
+-- Host: localhost    Database: node_day_7
 -- ------------------------------------------------------
 -- Server version	8.0.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -137,7 +135,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (39,'huytrantuan12','trantuanhuy1@gmail.com','$2b$10$9PS5XBHM4WUvozpkoTpr/OcqPLfLO4AmmtftCcrThcNe20oc48o5e','user','Y4T5e0gB2Eyt0SgpzoxD6KlxKGnZZTVG',NULL,'2026-01-29 15:14:46','2026-01-29 18:21:27',NULL,'2026-02-05 18:21:28'),(41,'huytrantuan2','trantuanhuy2@gmail.com','$2b$10$Q193bsNawfWClNFMUZRQfuogs/BuUnZEZmcEKgtBNKBEAK.PgBDS2','user','keV99w7JdljVLTptxBvTpOj6ibw9wAjT',NULL,'2026-01-29 15:27:47','2026-02-01 20:53:03',NULL,'2026-02-08 20:15:26'),(42,'huytrantuan3','trantuanhuy3@gmail.com','$2b$10$mz5mrCcaw6k6AN21eFySfezBKvwtxCiX7yuhYni4QygThNs9GXCq6','user','o37i2A8f47SuQpe9wXCZRzHahmAWBsQO',NULL,'2026-01-29 15:39:09','2026-01-29 18:21:03',NULL,'2026-02-05 18:21:04'),(52,'yáuossss','trantuanhuyl@gmail.com','$2b$10$YTgDM3mcz2UG0wC.9Gtc5.27TzWgyGg3wTSeSh1yQUsoFPvJMxKw2','user','9s3ASfhCkcMBCNPpvzHHJa7ko4RccYoW','2026-02-01 18:50:18','2026-01-30 18:13:19','2026-02-01 20:53:03',NULL,'2026-02-06 18:13:19');
+INSERT INTO `users` VALUES (39,'huytrantuan12','trantuanhuy1@gmail.com','$2b$10$9PS5XBHM4WUvozpkoTpr/OcqPLfLO4AmmtftCcrThcNe20oc48o5e','user','Y4T5e0gB2Eyt0SgpzoxD6KlxKGnZZTVG',NULL,'2026-01-29 15:14:46','2026-01-29 18:21:27',NULL,'2026-02-05 18:21:28'),(41,'huytrantuan2','trantuanhuy2@gmail.com','$2b$10$Q193bsNawfWClNFMUZRQfuogs/BuUnZEZmcEKgtBNKBEAK.PgBDS2','user','wR8N8u13kZVkyymtWiIKzAB8B0zIAXpl',NULL,'2026-01-29 15:27:47','2026-02-02 19:27:51',NULL,'2026-02-09 19:27:52'),(42,'huytrantuan3','trantuanhuy3@gmail.com','$2b$10$mz5mrCcaw6k6AN21eFySfezBKvwtxCiX7yuhYni4QygThNs9GXCq6','user','o37i2A8f47SuQpe9wXCZRzHahmAWBsQO',NULL,'2026-01-29 15:39:09','2026-01-29 18:21:03',NULL,'2026-02-05 18:21:04'),(52,'yáuossss','trantuanhuyl@gmail.com','$2b$10$YTgDM3mcz2UG0wC.9Gtc5.27TzWgyGg3wTSeSh1yQUsoFPvJMxKw2','user','9s3ASfhCkcMBCNPpvzHHJa7ko4RccYoW','2026-02-01 18:50:18','2026-01-30 18:13:19','2026-02-01 20:53:03',NULL,'2026-02-06 18:13:19');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -150,4 +148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-02  3:54:53
+-- Dump completed on 2026-02-03  3:03:00
